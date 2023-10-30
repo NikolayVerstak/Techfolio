@@ -20,8 +20,8 @@ This app was built using the next technologies: Typescript, React, SASS, Bootstr
 
 ###### Projects Section (mobile view):
 
-<img src="/appearance/projects-front-view.png" alt="project front side" style="width: 350px">
-<img src="/appearance/projects-back-view.png" alt="project back side" style="width: 350px">
+<img src="/appearance/projects-front-view.png" alt="project front side" style="width: 330px">
+<img src="/appearance/projects-back-view.png" alt="project back side" style="width: 330px">
 
 ###### Contacts Section:
 

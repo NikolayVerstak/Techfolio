@@ -1,0 +1,57 @@
+@import "ReusableStyles.scss";
+
+$skill-block-width: calc-clamp(130px, 150px);
+$grid-gap: calc-clamp(1rem, 1.5rem);
+$skill-icon-height: calc-clamp(34px, 3rem);
+
+.portfolio-section#skills {
+    @include section-container-styles;
+    @include section-header-styles;
+    @include section-sideline-styles;
+    @include observing-styles;
+}
+
+.skills-list {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-template-columns: repeat(auto-fit, $skill-block-width);
+    justify-content: center;
+    gap: $grid-gap;
+
+    & .skill {
+        display: grid;
+        grid-template-columns: $skill-icon-height auto;
+        place-items: center left;
+        gap: 0.5rem;
+        width: $skill-block-width;
+        background-color: $light-text-color;
+        padding: 0.5rem;
+        border-radius: 6px;
+        box-shadow: 0 14px 28px #00000066;
+        box-sizing: border-box;
+
+        & svg {
+            height: $skill-icon-height;
+
+            &.google-icon {
+                height: calc($skill-icon-height * 0.8);
+                padding: calc($skill-icon-height * 0.1);
+            }
+            &.rest-api-icon {
+                height: auto;
+                width: 100%;
+            }
+        }
+
+        & span {
+            font-size: calc-clamp(0.8rem, 0.9rem);
+            font-weight: 600;
+        }
+    }
+}
+
+@media (max-width: #{$laptop-breakpoint}) {
+    .skills-list {
+        max-width: 800px;
+    }
+}

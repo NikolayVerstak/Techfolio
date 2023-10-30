@@ -1,0 +1,482 @@
+@import "ReusableStyles.scss";
+
+.portfolio-section#projects {
+    @include section-container-styles;
+    @include section-header-styles;
+    @include section-sideline-styles;
+    @include observing-styles;
+
+    --project-card-min-width: 400px;
+    --project-card-max-width: 500px;
+
+    .projects-list {
+        display: grid;
+        grid-auto-rows: min-content;
+        grid-template-columns: repeat(auto-fit, minmax(var(--project-card-min-width), auto));
+        justify-content: center;
+        gap: 1.5rem;
+    }
+}
+
+// each project layout styling
+.project-card {
+    position: relative;
+    transition: all 1s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+
+    .back,
+    .front {
+        top: 0;
+        left: 0;
+        max-width: var(--project-card-max-width);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        color: $grey-text-color;
+        background-color: $light-text-color;
+        box-sizing: border-box;
+
+        border: none;
+        overflow: hidden;
+    }
+}
+
+// project card front side styling
+.project-card .front {
+    $carousel-image-size: calc(1555 / 875);
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: inherit;
+    height: min-content;
+    position: relative;
+
+    .project-img {
+        .carousel-inner {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+                rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        }
+
+        .carousel-indicators {
+            top: calc(100% + 4px);
+            bottom: auto;
+            margin-bottom: 0;
+
+            & [data-bs-target] {
+                border-top-width: 6px;
+                border-bottom-width: 6px;
+                opacity: 0.3;
+            }
+
+            .active {
+                opacity: 0.6;
+            }
+        }
+
+        .carousel-control-next,
+        .carousel-control-prev {
+            display: none;
+        }
+
+        .carousel-item {
+            width: 100%;
+            aspect-ratio: $carousel-image-size;
+            background-size: cover;
+            background-position: center;
+
+            img {
+                width: 100%;
+                aspect-ratio: $carousel-image-size;
+                background-size: cover;
+            }
+        }
+    }
+
+    .project-info {
+        color: $grey-text-color;
+        box-sizing: border-box;
+        width: 100%;
+        padding-top: 1.8rem;
+        padding-bottom: 1.2rem;
+
+        .project-title {
+            font-weight: 700;
+            margin-bottom: calc-clamp(1rem, 1.3rem);
+        }
+
+        .project-descr {
+            position: relative;
+            margin-bottom: calc-clamp(1.2rem, 1.5rem);
+
+            span.descr-text {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                word-wrap: break-word;
+                overflow: hidden;
+
+                font-size: 0.9rem;
+                text-align: justify;
+
+                @media (max-width: 450px) {
+                    -webkit-line-clamp: 3;
+                }
+            }
+        }
+
+        .project-tools {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #7e7e7e;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            row-gap: 0.25rem;
+            column-gap: 0.5rem;
+        }
+    }
+
+    .project-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "live details code";
+
+        place-items: center;
+        padding: 0;
+
+        .project-code-link {
+            grid-area: code;
+        }
+
+        .project-live-link {
+            grid-area: live;
+            border-right: 1px solid #a3a9aecc;
+        }
+
+        .project-full-details {
+            grid-area: details;
+            border-right: 1px solid #a3a9aecc;
+        }
+
+        a,
+        .project-full-details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            gap: 0.5rem;
+            width: 100%;
+            cursor: pointer;
+
+            color: #3f3e3eb3;
+            background-color: #a3a9ae80;
+
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #a3a9aecc;
+                color: $light-text-color;
+                border: none;
+            }
+
+            span {
+                font-size: calc-clamp(0.7rem, 0.8rem);
+            }
+
+            svg {
+                font-size: calc-clamp(1.1rem, 1.3rem);
+            }
+        }
+    }
+}
+
+// project card back side styling
+.project-card .back {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform: rotateY(180deg);
+
+    .turn-card {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: grid;
+        place-items: center;
+        box-sizing: border-box;
+        padding: 0.5rem;
+        opacity: 0.6;
+        z-index: $projects-carousel-z-index;
+        cursor: pointer;
+
+        &::after {
+            content: "flip card";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            line-height: 1;
+            width: max-content;
+            transform: translate(-100%, -50%);
+        }
+
+        svg {
+            font-size: 1.3rem;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .project-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: calc-clamp(0.8rem, 1rem);
+
+        .project-descr-label {
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            font-weight: 700;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+        }
+
+        .project-timeline {
+            font-size: 1.2rem;
+        }
+
+        .project-descr {
+            font-size: calc-clamp(14px, 16px);
+            margin-bottom: calc-clamp(0.5rem, 0.8rem);
+            margin-top: calc-clamp(0rem, 0.5rem);
+            text-align: justify;
+        }
+
+        .project-tools {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #7e7e7e;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.25rem;
+
+            margin-top: calc-clamp(0.3rem, 0.5rem);
+            line-height: calc-clamp(0.8rem, 1rem);
+
+            span {
+                padding: 0.3rem 0.5rem;
+                border: 1px solid #cecece57;
+                border-radius: 4px;
+                background-color: #cecece48;
+            }
+        }
+    }
+}
+
+// carousel of projects cards for small devices
+@mixin carousel-control($position, $padding-size: 0px) {
+    $padding-size-px: convert-to-px($padding-size);
+
+    $min-label-position: calc(20px + $padding-size-px);
+    $max-label-position: calc(60px + $padding-size-px);
+    $screen-breakpoints-difference: calc((645px + 590px) / 2);
+    $min-max-difference: calc(50px - 20px);
+    $middle-label-position: calc(
+        ($min-label-position + $max-label-position) / 2 / (0.01 * $screen-breakpoints-difference) *
+            1vw
+    );
+    $label-position-value: clamp(
+        #{$min-label-position},
+        #{$middle-label-position},
+        #{$max-label-position}
+    );
+
+    position: absolute;
+    top: calc(100% + $sections-padding-size);
+    border-radius: 0;
+    background-color: transparent;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 1;
+
+    span {
+        display: none;
+    }
+
+    &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover::after {
+        color: rgba(62, 109, 152, 0.5);
+    }
+
+    @if $position == left {
+        left: $label-position-value;
+        &::after {
+            content: "prev";
+        }
+    } @else if $position == right {
+        right: $label-position-value;
+        &::after {
+            content: "next";
+        }
+    }
+}
+
+@media (max-width: #{$laptop-breakpoint}) {
+    $project-card-min-width: 300px;
+
+    .portfolio-section#projects {
+        --project-card-min-width: #{$project-card-min-width};
+        @include observing-styles(".projects-carousel");
+
+        // carousel of projects cards
+        .projects-carousel {
+            box-sizing: content-box;
+
+            & > .carousel-inner {
+                max-width: var(--project-card-max-width);
+                min-width: var(--project-card-min-width);
+                position: relative;
+                margin: 0 auto;
+                overflow: visible;
+
+                .carousel-item {
+                    transition: box-shadow, transform 0.6s ease-in-out;
+                }
+
+                .carousel-item-next {
+                    box-shadow: none;
+                }
+            }
+
+            & > .carousel-indicators {
+                top: calc(100% + 20px);
+                bottom: auto;
+                left: 1.5rem;
+                gap: calc-clamp(0.5rem, 0.7rem);
+
+                [data-bs-target] {
+                    box-sizing: content-box;
+                    flex: 0 1 auto;
+                    width: 10px;
+                    height: 10px;
+                    padding: 0;
+                    margin-right: 0;
+                    margin-left: 0;
+                    cursor: pointer;
+                    border-top: 10px solid transparent;
+                    border-bottom: 10px solid transparent;
+                    opacity: 0.5;
+                    transition: opacity 0.6s ease;
+
+                    margin: 0;
+                    border-radius: 50%;
+                    border-width: 0;
+
+                    &.active {
+                        background-color: $dark-blue-text-color;
+                    }
+                }
+            }
+
+            &.first-project .carousel-control-prev {
+                visibility: hidden;
+            }
+
+            &.last-project .carousel-control-next {
+                visibility: hidden;
+            }
+
+            .carousel-control-prev {
+                left: 1.5rem;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                top: calc(50% + 2.7rem);
+                transform: translateY(-50%);
+                height: min-content;
+                width: min-content;
+                padding: 0.5rem;
+                border-radius: 50%;
+                background-color: rgba(62, 109, 152, 0.5);
+                box-sizing: border-box;
+                visibility: visible;
+            }
+
+            @media (max-width: 645px) {
+                .carousel-control-prev {
+                    @include carousel-control(left, $sections-padding-size);
+                }
+
+                .carousel-control-next {
+                    @include carousel-control(right);
+                }
+            }
+        }
+    }
+
+    .project-card {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
+
+        .back {
+            .project-info {
+                .project-title {
+                    line-height: calc-clamp(1.2rem, 1.6rem);
+                    font-size: calc-clamp(1.1rem, 1.4rem);
+                    margin-bottom: calc-clamp(0.5rem, 0.8rem);
+                }
+
+                .project-timeline {
+                    font-size: calc-clamp(1rem, 1.1rem);
+                    line-height: calc-clamp(1.2rem, 1.3rem);
+                    margin-bottom: calc-clamp(0.5rem, 0.8rem);
+                }
+
+                .project-tools {
+                    font-size: 0.8rem;
+
+                    span {
+                        padding: 0.25rem 0.5rem;
+                    }
+                }
+            }
+
+            .turn-card {
+                top: calc-clamp(1.6rem, 1.8rem);
+                right: calc-clamp(0.6rem, 0.8rem);
+                padding: 0;
+                cursor: default;
+                opacity: 0.4;
+
+                &::after {
+                    content: "tab to flip card";
+                    font-size: 0.85rem;
+                    width: 55px;
+                }
+
+                svg {
+                    display: none;
+                }
+
+                &:hover {
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+}

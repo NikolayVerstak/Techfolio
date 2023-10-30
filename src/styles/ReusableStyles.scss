@@ -1,0 +1,187 @@
+/* NavBar Variables */
+$navbar-width: 100px;
+$navbar-bg-color: #7fa5c9;
+
+/* Text Variables */
+$dark-blue-text-color: #3f6e99;
+$grey-text-color: #3f3e3e;
+$light-text-color: #fff;
+
+/* Text Variables */
+$scroll-width: 8px;
+
+/* All Sections */
+$sections-padding-size: 1.5rem;
+
+/* Home Section Variables */
+$avatar-block-min-width: 350px;
+$text-block-min-width: 385px;
+$block-margin: 16px;
+
+/* Z-indexes */
+// popup-z-index: 15 is set as inline style
+$navbar-z-index: 10;
+$navbar-toggle-z-index: 11;
+$scroll-top-z-index: 9;
+$projects-carousel-z-index: 3;
+$section-z-index: 2;
+$section-sideline-z-index: 1;
+
+@mixin link-button-style {
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.25s;
+    border-radius: 6px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    box-shadow: 0 8px 8px #00000033;
+
+    &:hover {
+        transform: translateY(10%);
+        box-shadow: 0 8px 8px #00000066;
+    }
+
+    @media (max-width: #{$laptop-breakpoint}) {
+        border-radius: 4px;
+        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            transform: translateY(5%);
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.4);
+        }
+    }
+}
+
+/* Media */
+// |navBar=100px| |margin=16px home-avatar=350px margin=16px|  [margin=16px home-text=385px margin=16px] [scroll=8 px]
+$laptop-breakpoint: calc(
+    $navbar-width + $block-margin * 4 + $avatar-block-min-width + $text-block-min-width +
+        $scroll-width
+); // 908px
+$mobile-breakpoint: 375px;
+$middle-breakpoint: calc(($mobile-breakpoint + $laptop-breakpoint) / 2);
+
+@function convert-to-px($value) {
+    @if unit($value) == rem {
+        @return calc($value / 1rem * 16px);
+    } @else {
+        @return $value;
+    }
+}
+
+@function calc-clamp($min, $max) {
+    $min-px: convert-to-px($min);
+    $max-px: convert-to-px($max);
+
+    $middle-value: calc(($min-px + $max-px) / 2 / (0.01 * $middle-breakpoint) * 1vw);
+    $return-value: clamp(#{$min}, #{$middle-value}, #{$max});
+    @return $return-value;
+}
+
+// Each section styles
+$section-h1-margin: 1.5rem;
+$section-sideline-width: 1.5px;
+$sections-distance: 5rem;
+
+@mixin section-container-styles {
+    width: 90%;
+    max-width: 1200px;
+    margin: $sections-distance auto;
+
+    & section,
+    .projects-carousel {
+        padding: $sections-padding-size;
+        padding-bottom: 0;
+        position: relative;
+    }
+
+    @media (max-width: #{$laptop-breakpoint}) {
+        & section,
+        .projects-carousel {
+            padding-right: 0;
+        }
+    }
+}
+
+@mixin section-header-styles {
+    & .section-header {
+        & > * {
+            width: max-content;
+            color: $dark-blue-text-color;
+            padding: 0 1.5rem 0.5rem 1.5rem;
+            text-transform: uppercase;
+
+            transform: scale(0.7) translateZ(0px);
+            opacity: 0;
+            transition: all 0.5s ease-in;
+        }
+
+        & p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding-top: 1rem;
+        }
+
+        & h1 {
+            font-size: calc-clamp(1.6rem, 2rem);
+            position: relative;
+            border-bottom: $section-sideline-width solid $dark-blue-text-color;
+            margin: 0;
+
+            &::after {
+                content: "";
+                height: 100%;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                border-radius: 50%;
+                transform: translate(50%, 50%);
+                height: 0.5rem;
+                width: 0.5rem;
+                background: $dark-blue-text-color;
+            }
+        }
+
+        &.visible > * {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    }
+}
+
+@mixin section-sideline-styles($extra-length: $sections-distance) {
+    position: relative;
+
+    &::before {
+        content: "";
+        height: calc(100% + $extra-length);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1.5px;
+        background: $dark-blue-text-color;
+        z-index: $section-sideline-z-index;
+    }
+}
+
+@mixin observing-styles($selector: "section") {
+    & #{$selector} {
+        transform: translateX(-100px);
+        transition: all 0.4s ease-in;
+        opacity: 0;
+        z-index: $section-sideline-z-index;
+    }
+
+    &.visible #{$selector} {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

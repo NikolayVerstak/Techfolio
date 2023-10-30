@@ -1,0 +1,88 @@
+@import "ReusableStyles.scss";
+
+body {
+    background: rgb(145, 172, 197, 0.85);
+    background: linear-gradient(
+        90deg,
+        rgba(145, 172, 197, 0.85) 15%,
+        rgb(209, 205, 201) 50%,
+        rgba(244, 234, 227, 0.5) 85%
+    );
+    height: 100%;
+    min-width: 375px;
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: "Raleway", sans-serif;
+}
+
+main {
+    margin-left: $navbar-width;
+}
+
+@media (max-width: #{$laptop-breakpoint}) {
+    body {
+        background: rgb(145, 172, 197, 0.5);
+        background: linear-gradient(
+            90deg,
+            rgba(145, 172, 197, 0.5) 10%,
+            rgb(209, 205, 201) 50%,
+            rgba(145, 172, 197, 0.5) 90%
+        );
+    }
+
+    main {
+        margin: 0;
+    }
+}
+
+// Scrollbar Styles
+::-webkit-scrollbar {
+    width: $scroll-width;
+    height: $scroll-width;
+    background-color: transparent;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(209, 205, 201, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background-color: #7fa5c99c;
+    border-radius: 100vh;
+    width: 5px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+::-webkit-scrollbar-corner {
+    display: none;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: $navbar-bg-color;
+    border-radius: 100vh;
+}
+
+// Popup
+body .toast-container {
+    position: fixed;
+    .toast {
+        width: 330px;
+        overflow: hidden;
+
+        & .toast-header {
+            border-bottom-color: #3f3e3e80;
+            letter-spacing: 0.8px;
+            button {
+                color: $light-text-color;
+                margin-left: auto;
+            }
+        }
+
+        & > div {
+            background-color: #90c4a6cc;
+        }
+    }
+}

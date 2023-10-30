@@ -1,0 +1,40 @@
+@import "ReusableStyles.scss";
+
+.portfolio-section#about {
+    @include section-container-styles;
+    @include section-header-styles;
+    @include observing-styles(".about-text p");
+
+    .about-text {
+        padding: 0;
+
+        @include section-sideline-styles;
+
+        p {
+            font-weight: 700;
+            font-size: calc-clamp(1rem, 1.2rem);
+            line-height: calc-clamp(1.5rem, 2.2rem);
+            color: $grey-text-color;
+            text-align: justify;
+
+            padding: 1.5rem;
+            padding-bottom: 0;
+
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+
+            span {
+                display: block;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: #{$laptop-breakpoint}) {
+    .portfolio-section#about .about-text p {
+        padding-right: 0;
+        max-width: 700px;
+    }
+}

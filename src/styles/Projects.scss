@@ -143,6 +143,7 @@
 
         place-items: center;
         padding: 0;
+        outline: none;
 
         .project-code-link {
             grid-area: code;
@@ -156,6 +157,7 @@
         .project-full-details {
             grid-area: details;
             border-right: 1px solid #a3a9aecc;
+            outline: none;
         }
 
         a,

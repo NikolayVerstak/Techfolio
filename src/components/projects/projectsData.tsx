@@ -110,8 +110,8 @@ export const projects: ProjectProps[] = [
         timeline: "August 2023",
         description: `Notes Manager App provides a straightforward platform for users to manage and categorize their notes. Users can create, edit, and organize their notes into distinct categories like "Task," "Random Thought," and "Idea." Additionally, the app offers features such as archiving, unarchiving, and bulk actions to streamline note management.`,
         technologies: {
-            main: ["#Typescript", "#React", "#Redux", "#SCSS"],
-            all: ["Typescript", "React", "Redux Toolkit", "SCSS", "Font Awesome"],
+            main: ["#TypeScript", "#React", "#Redux", "#SCSS"],
+            all: ["TypeScript", "React", "Redux Toolkit", "SCSS", "Font Awesome"],
         },
         images: projectsImages.notes.full,
         backgroungImages: projectsImages.notes.small,
